@@ -1,0 +1,38 @@
+---
+desciption: "Spring Boot Namespaced Basic Application"
+authors: ["Jimmie Fulton <jimmie.fulon@gmail.com"]
+languages: ["Java"]
+frameworks: ["Spring", "Spring Boot"]
+tags: ["Web"]
+
+script:
+
+  - set:
+      project_name:
+        prompt: "Project Name:"
+
+      artifact_id:
+        value: '{{ project_name | train_case }}-application'
+
+      group_id:
+        prompt: "Group ID:"
+        default: "com.example"
+        value: "{{ group_id}}.applications"
+
+      root_package:
+        value: '{{ group_id }}.{{ project_name | snake_case }}'
+
+      root_directory:
+        value: '{{ root_package | package_to_directory }}'
+
+      RootName:
+        value: '{{ project_name | pascal_case }}'
+
+      rootName:
+        value: '{{ RootName | camel_case }}'
+
+  - info: "{{ project_name }}"
+
+  - render:
+      directory:
+        source: contents
